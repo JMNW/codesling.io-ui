@@ -20,6 +20,7 @@ class Friends extends Component {
     e.preventDefault();
     const { user_id, friend_username } = this.state;
     const allUsers = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
+    console.log('ALL USERS HERE: ', allUsers)
     let user = allUsers.data.rows.filter(user => friend_username === user.username);
     const body = {
       user_id,
@@ -29,7 +30,8 @@ class Friends extends Component {
     this.props.history.push('/home');
   }
   fetchAllFriends  = async () => {
-    const allFriends = await axios.get(`http://localhost:3396/api/fetchAllFriends/${this.state.user_id}/`);
+    const allFriends = await axios.get(`http://localhost:3396/api/friends/fetchAllFriends/${this.state.user_id}/`);
+    console.log('ALL FRIENDS HERE: ', allFriends)
     
   }
   componentDidMount () {
