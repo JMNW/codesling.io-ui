@@ -1,14 +1,12 @@
 language: node_js
-node_js:
--"stable"
-
-notifications:
-  email: true
-
-services: postgreqsl
-
-before_script:
-
+node_js: node
+services: postgresql
+install:
+- yarn
+- yarn buildEnv
+- yarn setup:server
+- yarn setup:client
 
 script:
- - yarn
+- yarn build # develop with webpack
+- yarn start:server # start the static webserver
