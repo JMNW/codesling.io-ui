@@ -45,6 +45,10 @@ class Home extends Component {
     this.setState({ selectedChallenge: value });
   }
 
+  handleFriendsClick = () => {
+    this.props.history.push('/friends');
+  }
+
   render() {
     return (
       <div className="landing-page-container">
@@ -77,6 +81,13 @@ class Home extends Component {
           color="white"
           text="Duel"
           onClick={() => this.handleDuelClick()}
+        />
+        <br />
+        <Button
+          backgroundColor="red"
+          color="white"
+          text="Friends"
+          onClick={() => this.handleFriendsClick()}
         />
       </div>
     );
