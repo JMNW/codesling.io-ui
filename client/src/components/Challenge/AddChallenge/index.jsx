@@ -8,7 +8,7 @@ import Logo from '../../globals/Logo';
 import './Auth.css';
 
 class AddChallenge extends Component {
-  state = { 
+  state = {
     title: '',
     content: '',
     difficulty: null
@@ -26,6 +26,7 @@ class AddChallenge extends Component {
       type: 0
     }
     const result = await axios.post('http://localhost:3396/api/challenges', body);
+    console.log(result);
     this.props.history.push('/home');
   }
 
@@ -53,7 +54,7 @@ class AddChallenge extends Component {
             placeholder={'enter content'}
             onChange={this.handleChallengeInput}
             />
-          <Input 
+          <Input
             name='difficulty'
             type='difficulty'
             placeholder={'enter your difficulty'}

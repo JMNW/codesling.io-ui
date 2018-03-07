@@ -6,10 +6,10 @@ const Logo = ({
   className
 }) => {
   return (
-    <img 
+    <img
       alt="Codesling.io Logo"
       className={`logo ${className ? className : ''}`}
-      src={codeslingLogo}
+      src={'https://upload.wikimedia.org/wikipedia/commons/b/bb/Gorgosaurus_BW_transparent.png'}
     />
   );
 };
