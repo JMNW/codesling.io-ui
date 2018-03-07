@@ -3,7 +3,7 @@ node_js:
 -"stable"
 
 notifications:
-  email: false
+  email: true
 
 services: postgreqsl
 
