@@ -120,6 +120,7 @@ class Sling extends Component {
             color="white"
             onClick={() => this.submitCode()}
           />
+          <div> HELLOOOO </div>
         </div>
         <div className="code2-editor-container">
           <CodeMirror 
