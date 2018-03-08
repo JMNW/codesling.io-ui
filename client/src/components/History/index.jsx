@@ -1,34 +1,43 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-import { HistoryList } from './HistoryList.jsx';
-import Navbar from '../Navbar/Navbar.jsx';
+import { HistoryList } from "./HistoryList.jsx";
+import Navbar from "../Navbar/Navbar.jsx";
 
-import Friends from '../Friends/index.jsx'
+import Friends from "../Friends/index.jsx";
 class History extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       friends: [],
       history: []
-    }
+    };
   }
 
-  componentDidMount= async () => {
-    const id = localStorage.getItem('id');
-    const { data } =  await axios.get(`http://localhost:3396/api/history/fetchAllHistory/${id}`);
+  componentDidMount = async () => {
+    const id = localStorage.getItem("id");
+    const { data } = await axios.get(
+      `http://localhost:3396/api/history/fetchAllHistory/${id}`
+    );
     this.setState({ history: data });
-    const allFriends = await axios.get(`http://localhost:3396/api/friends/fetchAllFriends/${localStorage.getItem('id')}/`);
-    this.setState({friends: allFriends.data})
-  }
+    const allFriends = await axios.get(
+      `http://localhost:3396/api/friends/fetchAllFriends/${localStorage.getItem(
+        "id"
+      )}/`
+    );
+    this.setState({ friends: allFriends.data });
+  };
 
   render() {
     return (
       <div>
         {console.log(this.state)}
-        <Navbar/>
-              <h1>Challenge History</h1>
-        <HistoryList friends={this.state.friends} history={this.state.history}/>
+        <Navbar />
+        <h1>Challenge History</h1>
+        <HistoryList
+          friends={this.state.friends}
+          history={this.state.history}
+        />
       </div>
     );
   }
