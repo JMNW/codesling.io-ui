@@ -13,6 +13,9 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/base16-dark.css';
 import './Sling.css';
 
+
+//set the test === ownerText
+//if results of the test === the results of the ownerText, make it solved
 class Sling extends Component {
   constructor() {
     super();
@@ -22,7 +25,8 @@ class Sling extends Component {
       challengerText: null,
       text: '',
       challenge: '',
-      stdout: ''
+      stdout: '',
+      test: ''
     }
   }
 
@@ -33,12 +37,13 @@ class Sling extends Component {
       socket.emit('client.ready', startChall);
     });
     
-    socket.on('server.initialState', ({ id, text, challenge }) => {
+    socket.on('server.initialState', ({ id, text, challenge, test }) => {
       this.setState({
         id,
         ownerText: text,
         challengerText: text,
-        challenge
+        challenge,
+        test
       });
     });
 
@@ -63,6 +68,7 @@ class Sling extends Component {
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
     socket.emit('client.run', { text: ownerText, email });
+    
   }
 
   handleChange = throttle((editor, metadata, value) => {
