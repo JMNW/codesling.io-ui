@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Input from '../globals/forms/Input/index.js';
 import Button from '../globals/Button/index.js';
+import Navbar from '../Navbar/Navbar.jsx';
 
 import './Friend.css';
 
@@ -42,6 +43,8 @@ class Friends extends Component {
   }
   render () {
     return (
+      <div>
+      <Navbar />
       <div className="friend-form-container">
         <form className="friend-form">
           <Input
@@ -63,6 +66,7 @@ class Friends extends Component {
         })}
         </ul>
       </div>
+    </div>
     );
   }
 }
