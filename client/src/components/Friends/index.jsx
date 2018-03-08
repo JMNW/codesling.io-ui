@@ -56,6 +56,7 @@ class Friends extends Component {
             onClick={(e) => this.submitFriendRequest(e)}
             />
         </form>
+        <h1>Friend List</h1>
         <ul>
         {this.state.friends.map((friend, i) => {
           return <li key={i} index={i}>{friend.username}</li>

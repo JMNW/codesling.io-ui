@@ -27,7 +27,7 @@ class History extends Component {
       <div>
         {console.log(this.state)}
         <Navbar/>
-              <h1>WE GOT DA HISTORIES BOYEEE</h1>
+              <h1>Challenge History</h1>
         <HistoryList friends={this.state.friends} history={this.state.history}/>
       </div>
     );

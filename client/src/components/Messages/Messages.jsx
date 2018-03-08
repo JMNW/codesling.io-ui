@@ -9,25 +9,42 @@ import {
   withRouter
 } from "react-router-dom";
 
-import Navbar from '../Navbar/Navbar.jsx';
+import axios from 'axios';
+import Navbar from "../Navbar/Navbar.jsx";
 
 class Messages extends React.Component {
-
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = {}
-
+    this.state = {
+      messages: [],
+      friends: []
+    }
   }
+
+  componentDidMount = async () => {
+    const id = localStorage.getItem("id");
+    const { data } = await axios.get(
+      `http://localhost:3396/api/messages/${id}`
+    );
+    this.setState({ messages: data });
+    // const allFriends = await axios.get(
+    //   `http://localhost:3396/api/friends/fetchAllFriends/${localStorage.getItem(
+    //     "id"
+    //   )}/`
+    // );
+    // this.setState({ friends: allFriends.data });
+    console.log('mesages here ', data)
+  };
 
   render(props) {
-    return (<div id="messages">
-      <Navbar/>
-      <h1>WE GOT DA MESSAGES BOYEEE</h1>
-    </div>)
-
+    return (
+      <div id="messages">
+        <Navbar />
+        <h1>WE GOT DA MESSAGES BOYEEE</h1>
+      </div>
+    );
   }
-
 }
 
 export default Messages;
