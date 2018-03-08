@@ -19,36 +19,38 @@ class AddChallenge extends Component {
 
 
     e.preventDefault();
-    const { title, content, difficulty } = this.state;
+    const { title, content, difficulty, testContent } = this.state;
     const id = localStorage.getItem("id");
     const body = {
       title,
       content,
       difficulty,
+      testContent,
       user_id: id,
       type: 0
     };
-    const { testContent } = this.state;
+    // const { testContent } = this.state;
 
     const result = await axios.post(
       "http://localhost:3396/api/challenges",
       body
-    ); 
+    );
 
     console.log(result)
     const testBody = {
       content: testContent,
       challenge_id: result.data.id,
 
+
     };
-    
+
     const testResult = await axios.post(
       "http://localhost:3396/api/testCases",
       testBody
     );
 
     this.props.history.push("/home");
-  
+
   };
 
   handleChallengeInput = event => {
@@ -63,7 +65,7 @@ class AddChallenge extends Component {
 
   render() {
     return (
-      
+
       <div className="login-form-container">
         {console.log(this.state)}
         <Logo className="landing-page-logo" />
