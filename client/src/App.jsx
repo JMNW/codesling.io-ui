@@ -12,6 +12,7 @@ import AddChallenge from './components/Challenge/AddChallenge/index.jsx';
 import Protected from './components/globals/Protected';
 import History from './components/History/index.jsx';
 import Friends from './components/Friends/index.jsx';
+import Messages from './components/Messages/Messages.jsx';
 
 class App extends Component {
   constructor() {
@@ -33,6 +34,9 @@ class App extends Component {
           )}/>
           <Route path='/friends' component={(props) => (
             <Protected component={Friends} {...props} />
+          )}/>
+        <Route path='/messages' component={(props) => (
+            <Protected component={Messages} {...props} />
           )}/>
           <Route path='/slinger' component={Slinger} />
           <Route path='/history' component={History} />
