@@ -6,6 +6,9 @@ import Button from '../globals/Button';
 import Logo from '../globals/Logo';
 
 import './LandingPage.css';
+import Navbar from '../Navbar/Navbar.jsx';
+
+
 
 let slingId;
 
@@ -34,7 +37,7 @@ class Home extends Component {
       }
     });
   }
-  
+
   handleAddChallengeClick = () => {
     this.props.history.push('/addChallenge');
   }
@@ -45,9 +48,14 @@ class Home extends Component {
     this.setState({ selectedChallenge: value });
   }
 
+  handleFriendsClick = () => {
+    this.props.history.push('/friends');
+  }
+
   render() {
     return (
       <div className="landing-page-container">
+      <Navbar />
         <Logo
           className="landing-page-logo"
         />
@@ -77,6 +85,13 @@ class Home extends Component {
           color="white"
           text="Duel"
           onClick={() => this.handleDuelClick()}
+        />
+        <br />
+        <Button
+          backgroundColor="red"
+          color="white"
+          text="Friends"
+          onClick={() => this.handleFriendsClick()}
         />
       </div>
     );
