@@ -11,6 +11,7 @@ class Friends extends Component {
   state = {
     user_id: localStorage.getItem('id'),
     friend_username: '',
+    friends: []
   }
   handleFriendUsernameInput = (e) => {
     const { name, value } = e.target;
@@ -31,7 +32,9 @@ class Friends extends Component {
   }
   fetchAllFriends  = async () => {
     const allFriends = await axios.get(`http://localhost:3396/api/friends/fetchAllFriends/${this.state.user_id}/`);
-    console.log('ALL FRIENDS HERE: ', allFriends)
+    this.setState({friends: allFriends.data})
+    console.log(this.state)
+
     
   }
   componentDidMount () {
@@ -40,7 +43,6 @@ class Friends extends Component {
   render () {
     return (
       <div className="friend-form-container">
-
         <form className="friend-form">
           <Input
             name='friend_username'
@@ -55,6 +57,11 @@ class Friends extends Component {
             onClick={(e) => this.submitFriendRequest(e)}
             />
         </form>
+        <ul>
+        {this.state.friends.map((friend, i) => {
+          return <li key={i} index={i}>{friend.username}</li>
+        })}
+        </ul>
       </div>
     );
   }
