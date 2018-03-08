@@ -11,7 +11,7 @@ class History extends Component {
 
   async componentDidMount() {
     const id = localStorage.getItem('id');
-    const { data } = await axios.get(`http://localhost:3396/api/history/fetchAllHistory/${id}`);
+    const { data } =  await axios.get(`http://localhost:3396/api/history/fetchAllHistory/${id}`);
     this.setState({ history: data });
   }
 

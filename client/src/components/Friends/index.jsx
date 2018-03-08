@@ -22,7 +22,6 @@ class Friends extends Component {
     e.preventDefault();
     const { user_id, friend_username } = this.state;
     const allUsers = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
-    console.log('ALL USERS HERE: ', allUsers)
     let user = allUsers.data.rows.filter(user => friend_username === user.username);
     const body = {
       user_id,
