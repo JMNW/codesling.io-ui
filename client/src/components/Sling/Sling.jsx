@@ -57,6 +57,7 @@ class Sling extends Component {
 
     socket.on('server.run', ({ stdout, email }) => {
       const ownerEmail = localStorage.getItem('email');
+      // email === ownerEmail ? this.setState({ stdout }) : null;
       email === ownerEmail ? this.setState({ stdout }) : null;
     });
 
