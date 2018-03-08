@@ -33,9 +33,6 @@ class Friends extends Component {
   fetchAllFriends  = async () => {
     const allFriends = await axios.get(`http://localhost:3396/api/friends/fetchAllFriends/${this.state.user_id}/`);
     this.setState({friends: allFriends.data})
-    console.log(this.state)
-
-    
   }
   componentDidMount () {
     this.fetchAllFriends();

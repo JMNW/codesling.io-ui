@@ -1,10 +1,11 @@
 import React from "react";
 
-export const HistoryList = ({ history }) => {
+export const HistoryList = ({ history, friends }) => {
   let outcome;
   return (
     <div>
       <table align="center">
+      <thead>
         <tr>
           <th>Outcome</th>
           <th>Time</th>
@@ -12,23 +13,29 @@ export const HistoryList = ({ history }) => {
           <th>Challenger</th>
           <th>Challenge ID</th>
         </tr>
-      {history.map(hist => {
+        </thead>
+        <tbody>
+      {history.map( (hist, i) => {
         return (
-          <tr>
-            <th>{hist.outcome}</th>
-            {hist.outcome ? <th>WIN</th> : <th>LOSS</th>}
-            {/* <th>{hist.time}</th> */}
+          <tr key={i}>
+            {hist.outcome === Number(localStorage.getItem('id')) ? <th>WIN</th> : <th>LOSS</th>}
+            <th>{hist.time}</th>
             <th>{hist.clout}</th>
-            <th>{hist.challenger_id}</th>
+            {friends.forEach((friend) => {
+              friend.id === hist.challenger_id ? hist.username=friend.username : null;
+            })}
+            <th>{hist.username}</th>
             <th>{hist.challenge_id}</th>
           </tr>
+          // what's hist.receiver... ?
           // <li>
           //   <div>{outcome}</div>
           //   <div>Opponent: {hist.receiver.rows[0].username}</div>
           //   <div>Clout Earned: {hist.clout}</div>
           // </li>
-        );
+        )
       })}
+      </tbody>
       </table>
     </div>
   );
