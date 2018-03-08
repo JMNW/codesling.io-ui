@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Input from '../globals/forms/Input/index.js';
 import Button from '../globals/Button/index.js';
+import Navbar from '../Navbar/Navbar.jsx';
 
 import './Friend.css';
 
@@ -30,13 +31,15 @@ class Friends extends Component {
   }
   fetchAllFriends  = async () => {
     const allFriends = await axios.get(`http://localhost:3396/api/fetchAllFriends/${this.state.user_id}/`);
-    
+
   }
   componentDidMount () {
     this.fetchAllFriends();
   }
   render () {
     return (
+      <div>
+      <Navbar />
       <div className="friend-form-container">
 
         <form className="friend-form">
@@ -54,6 +57,7 @@ class Friends extends Component {
             />
         </form>
       </div>
+    </div>
     );
   }
 }

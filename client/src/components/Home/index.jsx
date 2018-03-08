@@ -6,6 +6,9 @@ import Button from '../globals/Button';
 import Logo from '../globals/Logo';
 
 import './LandingPage.css';
+import Navbar from '../Navbar/Navbar.jsx';
+
+
 
 let slingId;
 
@@ -34,7 +37,7 @@ class Home extends Component {
       }
     });
   }
-  
+
   handleAddChallengeClick = () => {
     this.props.history.push('/addChallenge');
   }
@@ -52,6 +55,7 @@ class Home extends Component {
   render() {
     return (
       <div className="landing-page-container">
+      <Navbar />
         <Logo
           className="landing-page-logo"
         />
