@@ -119,9 +119,6 @@ class Sling extends Component {
     return (
      
       <div className="sling-container">
-      {console.log('props', this.props)}
-      {console.log('state', this.state)}
-
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
@@ -149,7 +146,6 @@ class Sling extends Component {
           />
           <div className="message-continaer">
             {this.state.messages.map( (msg, i) => {
-              console.log('IN RENDER', msg)
               return <p key={i}>{`${this.state.users[msg.sender_id]} : ${msg.content}`}</p>;
             })}
             <input type="text" id="message" />
