@@ -62,9 +62,9 @@ class Home extends Component {
         />
         <br />
         <select onChange={(e) => this.handleChallengeSelect(e)}>
-          {this.state.allChallenges.map(challenge => {
+          {this.state.allChallenges.map((challenge, i) => {
             return (
-            <option
+            <option key={i}
               value={JSON.stringify(challenge)}
             >
               {challenge.title}

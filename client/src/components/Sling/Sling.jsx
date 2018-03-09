@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
-import CodeMirror from 'react-codemirror2';
-import io from 'socket.io-client/dist/socket.io.js';
-import axios from 'axios';
-import { throttle } from 'lodash';
+import React, { Component } from "react";
+import CodeMirror from "react-codemirror2";
+import io from "socket.io-client/dist/socket.io.js";
+import axios from "axios";
+import { throttle } from "lodash";
 
-import Stdout from './StdOut/index.jsx';
-import EditorHeader from './EditorHeader';
-import Button from '../globals/Button';
+import Stdout from "./StdOut/index.jsx";
+import EditorHeader from "./EditorHeader";
+import Button from "../globals/Button";
 
-import 'codemirror/mode/javascript/javascript.js';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/base16-dark.css';
-import './Sling.css';
-
+import "codemirror/mode/javascript/javascript.js";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/base16-dark.css";
+import "./Sling.css";
 
 //set the test === ownerText
 //if results of the test === the results of the ownerText, make it solved
@@ -23,21 +22,31 @@ class Sling extends Component {
       id: null,
       ownerText: null,
       challengerText: null,
-      text: '',
-      challenge: '',
-      stdout: '',
-      test: ''
-    }
+      text: "",
+      challenge: "",
+      stdout: "",
+      test: "",
+      messages: [],
+      users: {}
+    };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
+    var userList = {};
+    data.rows.forEach((user, i) => {
+      userList[user.id] = user.username;
+    })
+    this.setState({users: userList})
+
     const { socket, challenge } = this.props;
-    const startChall = typeof challenge === 'string' ? JSON.parse(challenge) : {}
-    socket.on('connect', () => {
-      socket.emit('client.ready', startChall);
+    const startChall =
+      typeof challenge === "string" ? JSON.parse(challenge) : {};
+    socket.on("connect", () => {
+      socket.emit("client.ready", startChall);
     });
-    
-    socket.on('server.initialState', ({ id, text, challenge}) => {
+
+    socket.on("server.initialState", ({ id, text, challenge, test }) => {
       this.setState({
         id,
         ownerText: text,
@@ -47,21 +56,24 @@ class Sling extends Component {
       });
     });
 
-    socket.on('server.changed', ({ text, email }) => {
-      if (localStorage.getItem('email') === email) {
+    socket.on("server.changed", ({ text, email }) => {
+      if (localStorage.getItem("email") === email) {
         this.setState({ ownerText: text });
       } else {
         this.setState({ challengerText: text });
       }
     });
 
-    socket.on('server.run', ({ stdout, email }) => {
-      const ownerEmail = localStorage.getItem('email');
-      // email === ownerEmail ? this.setState({ stdout }) : null;
+    socket.on("server.run", ({ stdout, email }) => {
+      const ownerEmail = localStorage.getItem("email");
       email === ownerEmail ? this.setState({ stdout }) : null;
     });
 
-    window.addEventListener('resize', this.setEditorSize);
+    socket.on("server.message", (data) => {
+      this.setState({ messages: [...this.state.messages, data[0]]});
+    });
+
+    window.addEventListener("resize", this.setEditorSize);
   }
 
 
@@ -74,45 +86,57 @@ class Sling extends Component {
   }
 
   handleChange = throttle((editor, metadata, value) => {
-    const email = localStorage.getItem('email');
-    this.props.socket.emit('client.update', { text: value, email });
-  }, 250)
+    const email = localStorage.getItem("email");
+    this.props.socket.emit("client.update", { text: value, email });
+  }, 250);
 
   setEditorSize = throttle(() => {
     this.editor.setSize(null, `${window.innerHeight - 80}px`);
   }, 100);
 
-  initializeEditor = (editor) => {
+  initializeEditor = editor => {
     this.editor = editor;
     this.setEditorSize();
-  }
+  };
+
+  sendMessage =  () => {
+    // const { socket } = this.props;
+    var msg =  document.getElementById("message").value;
+    if (msg) {
+      this.props.socket.emit("client.message", { 
+        sender_id: localStorage.getItem('id'),
+        receiver_id: localStorage.getItem('id'),
+        content: msg,
+
+        
+      });
+    }
+    
+  };
 
   render() {
     const { socket } = this.props;
     return (
      
       <div className="sling-container">
-      {console.log('props', this.props)}
-      {console.log('state', this.state)}
-
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
             editorDidMount={this.initializeEditor}
             value={this.state.ownerText}
             options={{
-              mode: 'javascript',
+              mode: "javascript",
               lineNumbers: true,
-              theme: 'base16-dark',
+              theme: "base16-dark"
             }}
             onChange={this.handleChange}
-            />
+          />
         </div>
         <div className="stdout-container">
-            {this.state.challenge.title || this.props.challenge.title}
-            <br/>
-            {this.state.challenge.content || this.props.challenge.content}
-          <Stdout text={this.state.stdout}/>
+          {this.state.challenge.title || this.props.challenge.title}
+          <br />
+          {this.state.challenge.content || this.props.challenge.content}
+          <Stdout text={this.state.stdout} />
           <Button
             className="run-btn"
             text="Run Code"
@@ -120,21 +144,30 @@ class Sling extends Component {
             color="white"
             onClick={() => this.submitCode()}
           />
+          <div className="message-continaer">
+            {this.state.messages.map( (msg, i) => {
+              return <p key={i}>{`${this.state.users[msg.sender_id]} : ${msg.content}`}</p>;
+            })}
+            <input type="text" id="message" />
+            <button type="button" name="button" onClick={this.sendMessage}>
+              Send
+            </button>
+          </div>
         </div>
         <div className="code2-editor-container">
-          <CodeMirror 
+          <CodeMirror
             editorDidMount={this.initializeEditor}
             value={this.state.challengerText}
             options={{
-              mode: 'javascript',
+              mode: "javascript",
               lineNumbers: true,
-              theme: 'base16-dark',
-              readOnly: true,
+              theme: "base16-dark",
+              readOnly: true
             }}
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
