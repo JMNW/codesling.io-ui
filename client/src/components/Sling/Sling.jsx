@@ -31,7 +31,6 @@ class Sling extends Component {
     };
   }
 
-<<<<<<< HEAD
   componentDidMount = async () => {
     var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
     var userList = {};
@@ -40,10 +39,6 @@ class Sling extends Component {
     })
     this.setState({users: userList})
 
-=======
-  componentDidMount () {
-    const test = axios.get()
->>>>>>> dat logo
     const { socket, challenge } = this.props;
     const startChall =
       typeof challenge === "string" ? JSON.parse(challenge) : {};
@@ -51,11 +46,7 @@ class Sling extends Component {
       socket.emit("client.ready", startChall);
     });
 
-<<<<<<< HEAD
     socket.on("server.initialState", ({ id, text, challenge, test }) => {
-=======
-    socket.on('server.initialState', ({ id, text, challenge, test }) => {
->>>>>>> dat logo
       this.setState({
         id,
         ownerText: text,
@@ -73,13 +64,8 @@ class Sling extends Component {
       }
     });
 
-<<<<<<< HEAD
     socket.on("server.run", ({ stdout, email }) => {
       const ownerEmail = localStorage.getItem("email");
-=======
-    socket.on('server.run', ({ stdout, email }) => {
-      const ownerEmail = localStorage.getItem('email');
->>>>>>> dat logo
       email === ownerEmail ? this.setState({ stdout }) : null;
     });
 
@@ -116,15 +102,15 @@ class Sling extends Component {
     // const { socket } = this.props;
     var msg =  document.getElementById("message").value;
     if (msg) {
-      this.props.socket.emit("client.message", { 
+      this.props.socket.emit("client.message", {
         sender_id: localStorage.getItem('id'),
         receiver_id: localStorage.getItem('id'),
         content: msg,
 
-        
+
       });
     }
-    
+
   };
 
   render() {
