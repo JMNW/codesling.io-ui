@@ -36,9 +36,14 @@ class Sling extends Component {
     };
   }
 
+<<<<<<< HEAD
   async componentDidMount() {
 
     this.invokeJohnny()
+=======
+  componentDidMount () {
+    const test = axios.get()
+>>>>>>> dat logo
     const { socket, challenge } = this.props;
     const startChall =
       typeof challenge === "string" ? JSON.parse(challenge) : {};
@@ -47,13 +52,17 @@ class Sling extends Component {
    
     });
 
+<<<<<<< HEAD
     socket.on("server.initialState", ({ id, text, challenge, test }) => {
+=======
+    socket.on('server.initialState', ({ id, text, challenge, test }) => {
+>>>>>>> dat logo
       this.setState({
         id,
         ownerText: text,
         challengerText: text,
         challenge,
-        test: challenge.test
+        test
       });
     });
 
@@ -65,8 +74,13 @@ class Sling extends Component {
       }
     });
 
+<<<<<<< HEAD
     socket.on("server.run", ({ stdout, email }) => {
       const ownerEmail = localStorage.getItem("email");
+=======
+    socket.on('server.run', ({ stdout, email }) => {
+      const ownerEmail = localStorage.getItem('email');
+>>>>>>> dat logo
       email === ownerEmail ? this.setState({ stdout }) : null;
     });
 
@@ -79,6 +93,7 @@ class Sling extends Component {
     
   }
 
+<<<<<<< HEAD
   async invokeJohnny(){
     var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
     var userList = {};
@@ -88,12 +103,14 @@ class Sling extends Component {
     this.setState({users: userList})
   }
 
+=======
+>>>>>>> dat logo
   submitCode = () => {
     const { socket } = this.props;
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
-    socket.emit('client.run', { text: ownerText, email, test: this.state.test});
-    
+    socket.emit('client.run', { text: ownerText, email });
+
   }
 
   handleChange = throttle((editor, metadata, value) => {
@@ -134,6 +151,7 @@ class Sling extends Component {
   render() {
     const { socket } = this.props;
     return (
+<<<<<<< HEAD
  
       <div className="sling-container">
       {console.log(this.state)}
@@ -147,6 +165,9 @@ class Sling extends Component {
       
       
       
+=======
+      <div className="sling-container">
+>>>>>>> dat logo
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
