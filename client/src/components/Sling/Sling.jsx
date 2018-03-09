@@ -30,20 +30,21 @@ class Sling extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
+    const test = axios.get()
     const { socket, challenge } = this.props;
     const startChall = typeof challenge === 'string' ? JSON.parse(challenge) : {}
     socket.on('connect', () => {
       socket.emit('client.ready', startChall);
     });
-    
-    socket.on('server.initialState', ({ id, text, challenge}) => {
+
+    socket.on('server.initialState', ({ id, text, challenge, test }) => {
       this.setState({
         id,
         ownerText: text,
         challengerText: text,
         challenge,
-        test: challenge.test
+        test
       });
     });
 
@@ -57,20 +58,18 @@ class Sling extends Component {
 
     socket.on('server.run', ({ stdout, email }) => {
       const ownerEmail = localStorage.getItem('email');
-      // email === ownerEmail ? this.setState({ stdout }) : null;
       email === ownerEmail ? this.setState({ stdout }) : null;
     });
 
     window.addEventListener('resize', this.setEditorSize);
   }
 
-
   submitCode = () => {
     const { socket } = this.props;
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
-    socket.emit('client.run', { text: ownerText, email, test: this.state.test});
-    
+    socket.emit('client.run', { text: ownerText, email });
+
   }
 
   handleChange = throttle((editor, metadata, value) => {
@@ -90,11 +89,7 @@ class Sling extends Component {
   render() {
     const { socket } = this.props;
     return (
-     
       <div className="sling-container">
-      {console.log('props', this.props)}
-      {console.log('state', this.state)}
-
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
@@ -122,7 +117,7 @@ class Sling extends Component {
           />
         </div>
         <div className="code2-editor-container">
-          <CodeMirror 
+          <CodeMirror
             editorDidMount={this.initializeEditor}
             value={this.state.challengerText}
             options={{

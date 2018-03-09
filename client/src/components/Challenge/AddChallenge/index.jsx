@@ -36,7 +36,7 @@ class AddChallenge extends Component {
       body
     );
     console.log(result)
-    
+
     const testBody = {
       content: testContent,
       challenge_id: result.data.id,
@@ -67,7 +67,7 @@ class AddChallenge extends Component {
     return (
 
       <div className="login-form-container">
-    
+
         <Logo className="landing-page-logo" />
         <form className="auth-form">
           <Input
@@ -77,6 +77,8 @@ class AddChallenge extends Component {
             onChange={this.handleChallengeInput}
           />
           <Input
+            width="50"
+            height="150"
             name="content"
             type="content"
             placeholder={"enter content"}
@@ -95,9 +97,11 @@ class AddChallenge extends Component {
             onClick={e => this.submitChallenge(e)}
           />
           <Input
+            width="50"
+            height="150"
             name="testContent"
             type="content"
-            placeholder={"enter Test content"}
+            placeholder={"enter EXPECTED VALUE and ARGUMENTS comma delineated"}
             onChange={this.handleTestChallengeInput}
           />
         </form>
