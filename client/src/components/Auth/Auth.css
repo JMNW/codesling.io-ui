@@ -8,15 +8,9 @@
   margin: auto;
 }
 
-<<<<<<< HEAD
-.login-form-container
-.signup-form-container {
-  width: 100%; }
-=======
 .login-form-container .signup-form-container {
   width: 100%;
 }
->>>>>>> fixed bug
 
 .auth-form {
   margin: auto;
