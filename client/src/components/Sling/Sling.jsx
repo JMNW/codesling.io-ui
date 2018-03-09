@@ -37,13 +37,13 @@ class Sling extends Component {
       socket.emit('client.ready', startChall);
     });
     
-    socket.on('server.initialState', ({ id, text, challenge, test }) => {
+    socket.on('server.initialState', ({ id, text, challenge}) => {
       this.setState({
         id,
         ownerText: text,
         challengerText: text,
         challenge,
-        test
+        test: challenge.test
       });
     });
 
@@ -57,17 +57,19 @@ class Sling extends Component {
 
     socket.on('server.run', ({ stdout, email }) => {
       const ownerEmail = localStorage.getItem('email');
+      // email === ownerEmail ? this.setState({ stdout }) : null;
       email === ownerEmail ? this.setState({ stdout }) : null;
     });
 
     window.addEventListener('resize', this.setEditorSize);
   }
 
+
   submitCode = () => {
     const { socket } = this.props;
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
-    socket.emit('client.run', { text: ownerText, email });
+    socket.emit('client.run', { text: ownerText, email, test: this.state.test});
     
   }
 
@@ -88,7 +90,11 @@ class Sling extends Component {
   render() {
     const { socket } = this.props;
     return (
+     
       <div className="sling-container">
+      {console.log('props', this.props)}
+      {console.log('state', this.state)}
+
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
