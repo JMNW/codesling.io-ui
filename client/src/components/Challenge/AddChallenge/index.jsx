@@ -35,8 +35,8 @@ class AddChallenge extends Component {
       "http://localhost:3396/api/challenges",
       body
     );
-
     console.log(result)
+    
     const testBody = {
       content: testContent,
       challenge_id: result.data.id,
