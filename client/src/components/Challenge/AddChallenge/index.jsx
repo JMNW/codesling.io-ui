@@ -35,8 +35,8 @@ class AddChallenge extends Component {
       "http://localhost:3396/api/challenges",
       body
     );
-
     console.log(result)
+    
     const testBody = {
       content: testContent,
       challenge_id: result.data.id,
@@ -67,7 +67,7 @@ class AddChallenge extends Component {
     return (
 
       <div className="login-form-container">
-        {console.log(this.state)}
+    
         <Logo className="landing-page-logo" />
         <form className="auth-form">
           <Input

@@ -55,6 +55,7 @@ class Home extends Component {
   render() {
     return (
       <div className="landing-page-container">
+      {console.log(this.state)}
       <Navbar />
         <Logo
           className="landing-page-logo"
