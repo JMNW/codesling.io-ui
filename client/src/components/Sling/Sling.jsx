@@ -34,7 +34,6 @@ class Sling extends Component {
   componentDidMount = async () => {
     var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
     var userList = {};
-    console.log(data)
     data.rows.forEach((user, i) => {
       userList[user.id] = user.username;
     })
