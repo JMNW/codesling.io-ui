@@ -79,6 +79,7 @@ class Sling extends Component {
 
   }
 
+<<<<<<< HEAD
   async invokeJohnny(){
     var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
     var userList = {};
@@ -88,6 +89,8 @@ class Sling extends Component {
     this.setState({users: userList})
   }
 
+=======
+>>>>>>> 656c9c05f1bedd2f02292b21423dfa5db9435587
   submitCode = () => {
     const { socket } = this.props;
     const { ownerText } = this.state;
@@ -124,7 +127,10 @@ class Sling extends Component {
       });
 
     }
+<<<<<<< HEAD
     (this.state.head === 'a')? this.state.image_url = 'https://i.imgur.com/NbIPnNl.png': null
+=======
+>>>>>>> 656c9c05f1bedd2f02292b21423dfa5db9435587
 
   };
 
@@ -134,7 +140,10 @@ class Sling extends Component {
   render() {
     const { socket } = this.props;
     return (
+<<<<<<< HEAD
 
+=======
+>>>>>>> 656c9c05f1bedd2f02292b21423dfa5db9435587
       <div className="sling-container">
       {console.log(this.state)}
         {animateDiv()}

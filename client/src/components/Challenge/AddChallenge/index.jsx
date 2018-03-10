@@ -26,6 +26,10 @@ class AddChallenge extends Component {
 
 
 
+
+
+
+
   submitChallenge = async e => {
 
 
@@ -88,7 +92,19 @@ class AddChallenge extends Component {
             placeholder={"enter title"}
             onChange={this.handleChallengeInput}
           />
+<<<<<<< HEAD
         <Input
+=======
+          <Input
+              className="small-input"
+              name="difficulty"
+              type="difficulty"
+              placeholder={"enter your difficulty"}
+              onChange={this.handleChallengeInput}
+            />
+
+        <textarea
+>>>>>>> 656c9c05f1bedd2f02292b21423dfa5db9435587
 
              className="big-input"
             name="content"
@@ -96,6 +112,7 @@ class AddChallenge extends Component {
             placeholder={"enter content"}
             onChange={this.handleChallengeInput}
           />
+<<<<<<< HEAD
         <Input
             className="small-input"
             name="difficulty"
@@ -113,11 +130,24 @@ class AddChallenge extends Component {
                className="big-input"
             width="50"
             height="150"
+=======
+
+
+        <textarea
+               className="big-input"
+            width="10"
+            height="250"
+>>>>>>> 656c9c05f1bedd2f02292b21423dfa5db9435587
             name="testContent"
             type="content"
             placeholder={"enter EXPECTED VALUE and ARGUMENTS comma delineated"}
             onChange={this.handleTestChallengeInput}
           >
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 656c9c05f1bedd2f02292b21423dfa5db9435587
 {`var funcName = PUT_NAME_HERE
 
 var expect = PUT_EXPECTED_VALUE_HERE
@@ -126,6 +156,7 @@ var args = PUT_ARGS_HERE
 
 const assertEquals = function(callback, expected, ...args) {
 	if (callback(...args) === expected) {
+<<<<<<< HEAD
 		 console.log('true')
 	} else {
 		console.log('false');
@@ -134,6 +165,23 @@ const assertEquals = function(callback, expected, ...args) {
 assertEquals(funcName, expect, ...args)`}
 </textarea>
 
+=======
+		 console.log(true)
+	} else {
+		console.log(false)
+	}
+}
+assertEquals(funcName, expect, ...args)`}
+</textarea>
+
+<Button
+  backgroundColor="red"
+  color="white"
+  text="Add Challenge"
+  onClick={e => this.submitChallenge(e)}
+/>
+
+>>>>>>> 656c9c05f1bedd2f02292b21423dfa5db9435587
 
 
         </form>
