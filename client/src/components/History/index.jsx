@@ -5,6 +5,8 @@ import { HistoryList } from "./HistoryList.jsx";
 import Navbar from "../Navbar/Navbar.jsx";
 
 import Friends from "../Friends/index.jsx";
+
+const REST_SERVER_URL = process.env.REST_SERVER_URL;
 class History extends Component {
   constructor(props) {
     super(props);
@@ -17,11 +19,11 @@ class History extends Component {
   componentDidMount = async () => {
     const id = localStorage.getItem("id");
     const { data } = await axios.get(
-      `http://localhost:3396/api/history/fetchAllHistory/${id}`
+      `${REST_SERVER_URL}/api/history/fetchAllHistory/${id}`
     );
     this.setState({ history: data });
     const allFriends = await axios.get(
-      `http://localhost:3396/api/friends/fetchAllFriends/${localStorage.getItem(
+      `${REST_SERVER_URL}/api/friends/fetchAllFriends/${localStorage.getItem(
         "id"
       )}/`
     );

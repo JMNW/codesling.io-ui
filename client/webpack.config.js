@@ -9,6 +9,8 @@ const options = {
   uglify: {}
 }
 
+const Dotenv = require('dotenv-webpack');
+
 // if (process.env.NODE_ENV === 'production') {
 //   options.devTool = '';
 //   module.exports.plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -65,6 +67,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new Dotenv()
+  ]
   // plugins: [
   //   new ExtractTextPlugin('./client/styles/main.css', {
   //     allChunks: true

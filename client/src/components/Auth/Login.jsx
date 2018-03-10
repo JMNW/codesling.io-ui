@@ -6,6 +6,8 @@ import Button from '../globals/Button/';
 
 import './Auth.css';
 
+const REST_SERVER_URL = process.env.REST_SERVER_URL;
+
 export default class Login extends Component {
   constructor() {
     super();
@@ -26,7 +28,7 @@ export default class Login extends Component {
       username
     }
     try {
-      const data = await axios.post(`http://localhost:3396/api/auth/login`, body);
+      const data = await axios.post(`${REST_SERVER_URL}/api/auth/login`, body);
       localStorage.setItem('email', data.data.email)
       localStorage.setItem('id', data.data.id)
       localStorage.setItem('token', data.data.token.accessToken)

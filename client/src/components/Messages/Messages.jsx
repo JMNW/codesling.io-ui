@@ -12,6 +12,8 @@ import {
 import axios from 'axios';
 import Navbar from "../Navbar/Navbar.jsx";
 
+const REST_SERVER_URL = process.env.REST_SERVER_URL;
+
 class Messages extends React.Component {
   constructor(props) {
     super(props);
@@ -25,11 +27,11 @@ class Messages extends React.Component {
   componentDidMount = async () => {
     const id = localStorage.getItem("id");
     const { data } = await axios.get(
-      `http://localhost:3396/api/messages/${id}`
+      `${REST_SERVER_URL}/api/messages/${id}`
     );
     this.setState({ messages: data });
     const allFriends = await axios.get(
-      `http://localhost:3396/api/friends/fetchAllFriends/${localStorage.getItem(
+      `${REST_SERVER_URL}/api/friends/fetchAllFriends/${localStorage.getItem(
         "id"
       )}/`
     );

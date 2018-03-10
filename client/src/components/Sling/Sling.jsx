@@ -17,6 +17,8 @@ import $ from 'jquery'
 
 //set the test === ownerText
 //if results of the test === the results of the ownerText, make it solved
+
+const { REST_SERVER_URL } = process.env;
 class Sling extends Component {
   constructor() {
     super();
@@ -80,7 +82,7 @@ class Sling extends Component {
   }
 
   async invokeJohnny(){
-    var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
+    var {data} = await axios.get(`${REST_SERVER_URL}/api/users/fetchAllUsers`);
     var userList = {};
     data.rows.forEach((user, i) => {
       userList[user.id] = user.username;

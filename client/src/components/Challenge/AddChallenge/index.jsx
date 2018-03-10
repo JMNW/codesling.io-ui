@@ -12,7 +12,7 @@ import "./Auth.css";
 //   height: '1000px'
 // };
 
-
+const REST_SERVER_URL = process.env.REST_SERVER_URL;
 
 class AddChallenge extends Component {
   state = {
@@ -47,7 +47,7 @@ class AddChallenge extends Component {
     // const { testContent } = this.state;
 
     const result = await axios.post(
-      "http://localhost:3396/api/challenges",
+      `${REST_SERVER_URL}/api/challenges`,
       body
     );
     console.log(result)
@@ -60,7 +60,7 @@ class AddChallenge extends Component {
     };
 
     const testResult = await axios.post(
-      "http://localhost:3396/api/testCases",
+      `${REST_SERVER_URL}/api/testCases`,
       testBody
     );
 
