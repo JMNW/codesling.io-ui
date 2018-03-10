@@ -8,7 +8,7 @@ import Logo from '../globals/Logo';
 import './LandingPage.css';
 import Navbar from '../Navbar/Navbar.jsx';
 
-
+const REST_SERVER_URL = process.env.REST_SERVER_URL;
 
 let slingId;
 
@@ -20,7 +20,7 @@ class Home extends Component {
 
    async componentDidMount() {
     const id = localStorage.getItem('id');
-    const { data } = await axios.get(`http://localhost:3396/api/usersChallenges/${id}`)
+    const { data } = await axios.get(`${REST_SERVER_URL}/api/usersChallenges/${id}`)
     this.setState({ allChallenges: data.rows });
    }
 
