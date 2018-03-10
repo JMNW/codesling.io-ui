@@ -32,7 +32,7 @@ class Sling extends Component {
       users: {},
       head: null,
       image_url: null
-      
+
     };
   }
 
@@ -44,7 +44,7 @@ class Sling extends Component {
       typeof challenge === "string" ? JSON.parse(challenge) : {};
     socket.on("connect", () => {
       socket.emit("client.ready", startChall);
-   
+
     });
 
     socket.on("server.initialState", ({ id, text, challenge, test }) => {
@@ -53,7 +53,7 @@ class Sling extends Component {
         ownerText: text,
         challengerText: text,
         challenge,
-        test: challenge.test
+        test
       });
     });
 
@@ -76,7 +76,7 @@ class Sling extends Component {
 
     window.addEventListener("resize", this.setEditorSize);
 
-    
+
   }
 
   async invokeJohnny(){
@@ -92,8 +92,8 @@ class Sling extends Component {
     const { socket } = this.props;
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
-    socket.emit('client.run', { text: ownerText, email, test: this.state.test});
-    
+    socket.emit('client.run', { text: ownerText, email });
+
   }
 
   handleChange = throttle((editor, metadata, value) => {
@@ -112,29 +112,28 @@ class Sling extends Component {
 
   sendMessage =  () => {
     // const { socket } = this.props;
-    
+
     var msg =  document.getElementById("message").value;
     if (msg) {
-      this.props.socket.emit("client.message", { 
+      this.props.socket.emit("client.message", {
         sender_id: localStorage.getItem('id'),
         receiver_id: localStorage.getItem('id'),
         content: msg,
-        
-        
+
+
       });
-      
+
     }
     (this.state.head === 'a')? this.state.image_url = 'https://i.imgur.com/NbIPnNl.png': null
-    
+
   };
 
 
-  
+
 
   render() {
     const { socket } = this.props;
     return (
- 
       <div className="sling-container">
       {console.log(this.state)}
         {animateDiv()}
@@ -142,11 +141,11 @@ class Sling extends Component {
         (item.content === 'james') ? this.state.head = 'a' :null
       })}
 
-    
 
-      
-      
-      
+
+
+
+
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
@@ -177,7 +176,7 @@ class Sling extends Component {
               return <p key={i}>{`${this.state.users[msg.sender_id]} : ${msg.content}`}</p>;
             })}
             <input type="text" id="message" placeholder = 'Talk smack on your opponent'/>
-    
+
             <button type="button" name="button" onClick={this.sendMessage} >
               Send
             </button>
@@ -189,17 +188,17 @@ class Sling extends Component {
         allow="microphone; camera"
       ></iframe>
       </div>
-            
+
           </div>
 
         </div>
-        
-    
-    
 
- 
-    
-        
+
+
+
+
+
+
         <div className="code2-editor-container">
           <CodeMirror
             editorDidMount={this.initializeEditor}
@@ -214,7 +213,7 @@ class Sling extends Component {
         </div>
         <div  className = {this.state.head}> <img src = {this.state.image_url} /></div>
       </div>
-      
+
     );
   }
 }
