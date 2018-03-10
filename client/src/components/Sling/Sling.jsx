@@ -32,42 +32,22 @@ class Sling extends Component {
       users: {},
       head: null,
       image_url: null
-      
+
     };
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   async componentDidMount() {
 
     this.invokeJohnny()
-=======
-  componentDidMount = async () => {
-    var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
-    var userList = {};
-    data.rows.forEach((user, i) => {
-      userList[user.id] = user.username;
-    })
-    this.setState({users: userList})
-
->>>>>>> dat logo
-=======
-  componentDidMount () {
-    const test = axios.get()
->>>>>>> dat logo
     const { socket, challenge } = this.props;
     const startChall =
       typeof challenge === "string" ? JSON.parse(challenge) : {};
     socket.on("connect", () => {
       socket.emit("client.ready", startChall);
-   
+
     });
 
-<<<<<<< HEAD
     socket.on("server.initialState", ({ id, text, challenge, test }) => {
-=======
-    socket.on('server.initialState', ({ id, text, challenge, test }) => {
->>>>>>> dat logo
       this.setState({
         id,
         ownerText: text,
@@ -85,13 +65,8 @@ class Sling extends Component {
       }
     });
 
-<<<<<<< HEAD
     socket.on("server.run", ({ stdout, email }) => {
       const ownerEmail = localStorage.getItem("email");
-=======
-    socket.on('server.run', ({ stdout, email }) => {
-      const ownerEmail = localStorage.getItem('email');
->>>>>>> dat logo
       email === ownerEmail ? this.setState({ stdout }) : null;
     });
 
@@ -101,11 +76,9 @@ class Sling extends Component {
 
     window.addEventListener("resize", this.setEditorSize);
 
-    
+
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   async invokeJohnny(){
     var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
     var userList = {};
@@ -115,10 +88,6 @@ class Sling extends Component {
     this.setState({users: userList})
   }
 
-=======
->>>>>>> dat logo
-=======
->>>>>>> dat logo
   submitCode = () => {
     const { socket } = this.props;
     const { ownerText } = this.state;
@@ -143,33 +112,29 @@ class Sling extends Component {
 
   sendMessage =  () => {
     // const { socket } = this.props;
-    
+
     var msg =  document.getElementById("message").value;
     if (msg) {
-      this.props.socket.emit("client.message", { 
+      this.props.socket.emit("client.message", {
         sender_id: localStorage.getItem('id'),
         receiver_id: localStorage.getItem('id'),
         content: msg,
-        
-        
+
+
       });
-      
+
     }
     (this.state.head === 'a')? this.state.image_url = 'https://i.imgur.com/NbIPnNl.png': null
-    
+
   };
 
 
-  
+
 
   render() {
     const { socket } = this.props;
     return (
-<<<<<<< HEAD
-<<<<<<< HEAD
- 
-=======
->>>>>>> dat logo
+
       <div className="sling-container">
       {console.log(this.state)}
         {animateDiv()}
@@ -177,14 +142,11 @@ class Sling extends Component {
         (item.content === 'james') ? this.state.head = 'a' :null
       })}
 
-    
 
-      
-      
-      
-=======
-      <div className="sling-container">
->>>>>>> dat logo
+
+
+
+
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
@@ -215,7 +177,7 @@ class Sling extends Component {
               return <p key={i}>{`${this.state.users[msg.sender_id]} : ${msg.content}`}</p>;
             })}
             <input type="text" id="message" placeholder = 'Talk smack on your opponent'/>
-    
+
             <button type="button" name="button" onClick={this.sendMessage} >
               Send
             </button>
@@ -227,17 +189,17 @@ class Sling extends Component {
         allow="microphone; camera"
       ></iframe>
       </div>
-            
+
           </div>
 
         </div>
-        
-    
-    
 
- 
-    
-        
+
+
+
+
+
+
         <div className="code2-editor-container">
           <CodeMirror
             editorDidMount={this.initializeEditor}
@@ -252,7 +214,7 @@ class Sling extends Component {
         </div>
         <div  className = {this.state.head}> <img src = {this.state.image_url} /></div>
       </div>
-      
+
     );
   }
 }
