@@ -38,7 +38,7 @@ class Sling extends Component {
 
   async componentDidMount() {
 
-    this.invokeJohnny()
+    // this.invokeJohnny()
     const { socket, challenge } = this.props;
     const startChall =
       typeof challenge === "string" ? JSON.parse(challenge) : {};
@@ -53,7 +53,7 @@ class Sling extends Component {
         ownerText: text,
         challengerText: text,
         challenge,
-        test
+        test: challenge.test
       });
     });
 
@@ -92,7 +92,7 @@ class Sling extends Component {
     const { socket } = this.props;
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
-    socket.emit('client.run', { text: ownerText, email });
+    socket.emit('client.run', { text: ownerText, email, test:this.state.text });
 
   }
 
