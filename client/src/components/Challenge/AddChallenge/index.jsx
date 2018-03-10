@@ -6,6 +6,13 @@ import Button from "../../globals/Button/";
 import Logo from "../../globals/Logo";
 
 import "./Auth.css";
+//
+// var inputStyle = {
+//   width: '1000px',
+//   height: '1000px'
+// };
+
+
 
 class AddChallenge extends Component {
   state = {
@@ -13,7 +20,11 @@ class AddChallenge extends Component {
     content: "",
     difficulty: null,
     testContent: ""
-  };
+  };</textarea>
+
+
+
+
 
   submitChallenge = async e => {
 
@@ -66,33 +77,27 @@ class AddChallenge extends Component {
   render() {
     return (
 
-      <div className="login-form-container">
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-=======
+      <div align="center" className="login-form-container">
 
->>>>>>> dat logo
-=======
-
->>>>>>> dat logo
         <Logo className="landing-page-logo" />
         <form className="auth-form">
           <Input
+            className="small-input"
             name="title"
             type="title"
             placeholder={"enter title"}
             onChange={this.handleChallengeInput}
           />
-          <Input
-            width="50"
-            height="150"
+        <Input
+
+             className="big-input"
             name="content"
             type="content"
             placeholder={"enter content"}
             onChange={this.handleChallengeInput}
           />
-          <Input
+        <Input
+            className="small-input"
             name="difficulty"
             type="difficulty"
             placeholder={"enter your difficulty"}
@@ -104,14 +109,33 @@ class AddChallenge extends Component {
             text="Add Challenge"
             onClick={e => this.submitChallenge(e)}
           />
-          <Input
+        <textarea>
+               className="big-input"
             width="50"
             height="150"
             name="testContent"
             type="content"
             placeholder={"enter EXPECTED VALUE and ARGUMENTS comma delineated"}
             onChange={this.handleTestChallengeInput}
-          />
+          >
+{`var funcName = PUT_NAME_HERE
+
+var expect = PUT_EXPECTED_VALUE_HERE
+
+var args = PUT_ARGS_HERE
+
+const assertEquals = function(callback, expected, ...args) {
+	if (callback(...args) === expected) {
+		 console.log('true')
+	} else {
+		console.log('false');
+	}
+};
+assertEquals(funcName, expect, ...args)`}
+</textarea>
+
+
+
         </form>
       </div>
     );

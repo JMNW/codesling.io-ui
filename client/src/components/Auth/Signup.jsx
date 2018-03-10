@@ -48,19 +48,20 @@ export default class Signup extends Component {
             placeholder={'enter email'}
             onChange={this.handleInputChange}
             />
-          <Input 
+          <Input
             name='username'
             type='username'
             placeholder={'enter your username'}
             onChange={this.handleInputChange}
             />
-          <Input 
+          <Input
             name='password'
             type='password'
             placeholder={'enter your password'}
             onChange={this.handleInputChange}
             />
           <Button
+            className="button-margin"
             backgroundColor="red"
             color="white"
             text="Sign Up"

@@ -7,7 +7,6 @@
   display: block;
   margin: auto;
 }
-
 .login-form-container .signup-form-container {
   width: 100%;
 }
@@ -20,4 +19,8 @@
 
 .auth-link {
   margin-left: 5px;
+}
+
+.button-margin {
+  margin-bottom: 5%;
 }
