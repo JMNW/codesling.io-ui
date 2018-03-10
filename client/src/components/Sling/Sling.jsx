@@ -53,7 +53,7 @@ class Sling extends Component {
         ownerText: text,
         challengerText: text,
         challenge,
-        test: challenge.test
+        test: challenge.test,
       });
     });
 
@@ -92,7 +92,7 @@ class Sling extends Component {
     const { socket } = this.props;
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
-    socket.emit('client.run', { text: ownerText, email, test:this.state.text });
+    socket.emit('client.run', { text: ownerText, email, test:this.state.test });
 
   }
 
