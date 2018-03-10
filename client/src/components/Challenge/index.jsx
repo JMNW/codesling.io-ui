@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import AddChallenge from './AddChallenge/index.jsx';
 
+const REST_SERVER_URL = process.env.REST_SERVER_URL;
+
 class Challenge extends Component {
   state = {
     challenges: []
@@ -15,7 +17,7 @@ class Challenge extends Component {
 
   fetchAllChallenges = async () => {
     const id = localStorage.getItem('id');
-    const { data } = await axios.get(`http://localhost:3396/api/usersChallenges/${id}`)
+    const { data } = await axios.get(`${REST_SERVER_URL}/api/usersChallenges/${id}`)
     this.setState({ challenges: data.rows });
   }
 

@@ -8,6 +8,8 @@ import Navbar from '../Navbar/Navbar.jsx';
 
 import './Friend.css';
 
+const REST_SERVER_URL = process.env.REST_SERVER_URL;
+
 class Friends extends Component {
   state = {
     user_id: localStorage.getItem('id'),
@@ -21,17 +23,17 @@ class Friends extends Component {
   submitFriendRequest = async (e) => {
     e.preventDefault();
     const { user_id, friend_username } = this.state;
-    const allUsers = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
+    const allUsers = await axios.get(`${REST_SERVER_URL}/api/users/fetchAllUsers`);
     let user = allUsers.data.rows.filter(user => friend_username === user.username);
     const body = {
       user_id,
       friend_id: user[0].id
     };
-    const result = await axios.post('http://localhost:3396/api/friends/addFriend', body);
+    const result = await axios.post(`${REST_SERVER_URL}/api/friends/addFriend`, body);
     this.props.history.push('/home');
   }
   fetchAllFriends  = async () => {
-    const allFriends = await axios.get(`http://localhost:3396/api/friends/fetchAllFriends/${this.state.user_id}/`);
+    const allFriends = await axios.get(`${REST_SERVER_URL}/api/friends/fetchAllFriends/${this.state.user_id}/`);
     this.setState({friends: allFriends.data})
   }
   componentDidMount () {
