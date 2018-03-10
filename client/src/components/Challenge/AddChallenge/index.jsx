@@ -67,7 +67,7 @@ class AddChallenge extends Component {
     return (
 
       <div className="login-form-container">
-    
+        
         <Logo className="landing-page-logo" />
         <form className="auth-form">
           <Input
