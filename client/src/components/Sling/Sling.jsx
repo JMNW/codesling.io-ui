@@ -37,9 +37,20 @@ class Sling extends Component {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   async componentDidMount() {
 
     this.invokeJohnny()
+=======
+  componentDidMount = async () => {
+    var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
+    var userList = {};
+    data.rows.forEach((user, i) => {
+      userList[user.id] = user.username;
+    })
+    this.setState({users: userList})
+
+>>>>>>> dat logo
 =======
   componentDidMount () {
     const test = axios.get()
@@ -94,6 +105,7 @@ class Sling extends Component {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   async invokeJohnny(){
     var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
     var userList = {};
@@ -103,6 +115,8 @@ class Sling extends Component {
     this.setState({users: userList})
   }
 
+=======
+>>>>>>> dat logo
 =======
 >>>>>>> dat logo
   submitCode = () => {
@@ -152,7 +166,10 @@ class Sling extends Component {
     const { socket } = this.props;
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
  
+=======
+>>>>>>> dat logo
       <div className="sling-container">
       {console.log(this.state)}
         {animateDiv()}
