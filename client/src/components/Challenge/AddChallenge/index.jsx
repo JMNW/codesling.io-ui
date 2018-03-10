@@ -20,7 +20,7 @@ class AddChallenge extends Component {
     content: "",
     difficulty: null,
     testContent: ""
-  };</textarea>
+  }
 
 
 
@@ -134,8 +134,7 @@ const assertEquals = function(callback, expected, ...args) {
 		console.log(false)
 	}
 }
-assertEquals(funcName, expect, ...args)`}
-</textarea>
+assertEquals(funcName, expect, ...args)`}</textarea>
 
 <Button
   backgroundColor="red"
