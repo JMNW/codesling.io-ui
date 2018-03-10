@@ -12,6 +12,8 @@ import "codemirror/mode/javascript/javascript.js";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/base16-dark.css";
 import "./Sling.css";
+import { animateDiv } from './fun/head.js';
+import $ from 'jquery'
 
 //set the test === ownerText
 //if results of the test === the results of the ownerText, make it solved
@@ -27,23 +29,22 @@ class Sling extends Component {
       stdout: "",
       test: "",
       messages: [],
-      users: {}
+      users: {},
+      head: null,
+      image_url: null
+
     };
   }
 
-  componentDidMount = async () => {
-    var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
-    var userList = {};
-    data.rows.forEach((user, i) => {
-      userList[user.id] = user.username;
-    })
-    this.setState({users: userList})
+  async componentDidMount() {
 
+    this.invokeJohnny()
     const { socket, challenge } = this.props;
     const startChall =
       typeof challenge === "string" ? JSON.parse(challenge) : {};
     socket.on("connect", () => {
       socket.emit("client.ready", startChall);
+
     });
 
     socket.on("server.initialState", ({ id, text, challenge, test }) => {
@@ -52,7 +53,7 @@ class Sling extends Component {
         ownerText: text,
         challengerText: text,
         challenge,
-        test: challenge.test
+        test
       });
     });
 
@@ -74,15 +75,25 @@ class Sling extends Component {
     });
 
     window.addEventListener("resize", this.setEditorSize);
+
+
   }
 
+  async invokeJohnny(){
+    var {data} = await axios.get('http://localhost:3396/api/users/fetchAllUsers');
+    var userList = {};
+    data.rows.forEach((user, i) => {
+      userList[user.id] = user.username;
+    })
+    this.setState({users: userList})
+  }
 
   submitCode = () => {
     const { socket } = this.props;
     const { ownerText } = this.state;
     const email = localStorage.getItem('email');
-    socket.emit('client.run', { text: ownerText, email, test: this.state.test});
-    
+    socket.emit('client.run', { text: ownerText, email });
+
   }
 
   handleChange = throttle((editor, metadata, value) => {
@@ -101,24 +112,40 @@ class Sling extends Component {
 
   sendMessage =  () => {
     // const { socket } = this.props;
+
     var msg =  document.getElementById("message").value;
     if (msg) {
-      this.props.socket.emit("client.message", { 
+      this.props.socket.emit("client.message", {
         sender_id: localStorage.getItem('id'),
         receiver_id: localStorage.getItem('id'),
         content: msg,
 
-        
+
       });
+
     }
-    
+    (this.state.head === 'a')? this.state.image_url = 'https://i.imgur.com/NbIPnNl.png': null
+
   };
+
+
+
 
   render() {
     const { socket } = this.props;
     return (
-     
       <div className="sling-container">
+      {console.log(this.state)}
+        {animateDiv()}
+      {this.state.messages.forEach(item=>{
+        (item.content === 'james') ? this.state.head = 'a' :null
+      })}
+
+
+
+
+
+
         <EditorHeader />
         <div className="code1-editor-container">
           <CodeMirror
@@ -144,16 +171,34 @@ class Sling extends Component {
             color="white"
             onClick={() => this.submitCode()}
           />
-          <div className="message-continaer">
+          <div className="message-container">
             {this.state.messages.map( (msg, i) => {
               return <p key={i}>{`${this.state.users[msg.sender_id]} : ${msg.content}`}</p>;
             })}
-            <input type="text" id="message" />
-            <button type="button" name="button" onClick={this.sendMessage}>
+            <input type="text" id="message" placeholder = 'Talk smack on your opponent'/>
+
+            <button type="button" name="button" onClick={this.sendMessage} >
               Send
             </button>
+            <div>
+            <iframe
+        src="https://tokbox.com/embed/embed/ot-embed.js?embedId=2fc8bd7f-0f5b-495e-bf9a-b85a9507407a&room=DEFAULT_ROOM&iframe=true"
+        width={435}
+        height={400}
+        allow="microphone; camera"
+      ></iframe>
+      </div>
+
           </div>
+
         </div>
+
+
+
+
+
+
+
         <div className="code2-editor-container">
           <CodeMirror
             editorDidMount={this.initializeEditor}
@@ -166,7 +211,9 @@ class Sling extends Component {
             }}
           />
         </div>
+        <div  className = {this.state.head}> <img src = {this.state.image_url} /></div>
       </div>
+
     );
   }
 }

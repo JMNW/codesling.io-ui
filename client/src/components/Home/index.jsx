@@ -94,6 +94,9 @@ class Home extends Component {
           text="Friends"
           onClick={() => this.handleFriendsClick()}
         />
+
+
+    
       </div>
     );
   }
